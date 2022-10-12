@@ -23,7 +23,8 @@ export default function CartProvider({ children }: Children) {
   const removeBook = (book: Book) => {
     const bookToBeRemoved = shoppingCart.findIndex((eachBook) => eachBook.id === book.id);
     if (bookToBeRemoved !== -1) {
-      const books = shoppingCart.splice(bookToBeRemoved, 1);
+      const books = [...shoppingCart]
+      books.splice(bookToBeRemoved, 1);
       setShoppingCart([...books]);
     }
   };
