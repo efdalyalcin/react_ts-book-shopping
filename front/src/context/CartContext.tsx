@@ -11,7 +11,7 @@ type Children = {
   children: React.ReactNode;
 };
 
-export default function InstallmentProvider({ children }: Children) {
+export default function CartProvider({ children }: Children) {
   const [shoppingCart, setShoppingCart] = useState<Book[]>([]);
 
   const addBook = (book: Book) => {
