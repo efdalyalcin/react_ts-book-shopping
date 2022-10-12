@@ -9,3 +9,10 @@ interface Book {
   price: number;
   currency: string;
 }
+
+interface CartContextType {
+  shoppingCart: Book[];
+  addBook: (book: Book) => void;
+  removeBook: (book: Book) => void;
+  removeAll: (book: Book) => void;
+}

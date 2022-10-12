@@ -15,8 +15,8 @@ export default function Books() {
   }, []);
 
   return (
-    <div> 
-      {books.length ? <Book book={books[0]}/> : null}
+    <div className="flex flex-wrap gap-5 p-5 justify-center"> 
+      {books.length ? (books.map(book => <Book book={book} key={book.id}/>)): null}
     </div>
   );
 }

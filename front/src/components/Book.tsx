@@ -6,7 +6,7 @@ type Props = {
 
 export default function Book({ book }: Props) {
   return (
-    <div className="w-60 flex flex-col gap-2 p-2 rounded-lg bg-sky-200">
+    <div className="w-60 flex flex-col gap-2 p-2 rounded-lg bg-sky-200 hover:scale-105 transition-transform duration-300">
       <img src={book.cover_url} alt="Book cover" />
       <p className="">
         <span className="font-bold">Title: </span> {book.title}
