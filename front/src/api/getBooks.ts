@@ -7,3 +7,11 @@ export const getBooks = async () => {
 
   return books;
 };
+
+export const getBook = async (id: number) => {
+  const book = await fetch(`${BASE_URL}/book/${id}`)
+    .then(response => response.json())
+    .then(res => res.data);
+
+  return book;
+};

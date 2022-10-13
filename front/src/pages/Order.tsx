@@ -2,15 +2,25 @@ import { useCallback, useEffect, useState } from "react";
 import { postOrder } from "../api/postOrder";
 import InputLine from "../components/InputLine";
 import NavBar from "../components/NavBar";
+import Popup from "../components/Popup";
 import { useOrderBooks } from "../context/OrderContext";
 
 export default function Order() {
   const { booksWithQuantity } = useOrderBooks();
 
   const [firstName, setFirstName] = useState("");
+  const [isFirstNameValid, setIsFirstNameValid] = useState(false);
+
   const [lastName, setLastName] = useState("");
+  const [isLastNameValid, setIsLastNameValid] = useState(false);
+
   const [city, setCity] = useState("");
+  const [isCityValid, setIsCityValid] = useState(false);
+
   const [zipCode, setZipCode] = useState("");
+  const [isZipCodeValid, setIsZipCodeValid] = useState(false);
+
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const [totalPrice, setTotalPrice] = useState(0);
 
@@ -26,7 +36,50 @@ export default function Order() {
 
   useEffect(() => handlePrice(), [handlePrice]);
 
-  const handleSubmit = useCallback(() => {
+  const validateData = useCallback(() => {
+    if (firstName.length >= 4) {
+      setIsFirstNameValid(() => true);
+    } else {
+      setIsFirstNameValid(() => false);
+    }
+
+    if (lastName.length >= 5) {
+      setIsLastNameValid(() => true);
+    } else {
+      setIsLastNameValid(() => false);
+    }
+
+    if (city) {
+      setIsCityValid(() => true);
+    } else {
+      setIsCityValid(() => false);
+    }
+
+    const regex = /\d{2}-\d{3}/;
+    if (regex.test(zipCode)) {
+      setIsZipCodeValid(() => true);
+    } else {
+      setIsZipCodeValid(() => false);
+    }
+  }, [city, firstName, lastName, zipCode]);
+
+  const popupControl = useCallback(() => {
+    if (isFirstNameValid && isLastNameValid && isCityValid && isZipCodeValid) {
+      setIsPopupOpen(() => false);
+    } else {
+      setIsPopupOpen(() => true);
+    }
+  }, [isCityValid, isFirstNameValid, isLastNameValid, isZipCodeValid]);
+
+  useEffect(() => {
+    validateData();
+    popupControl();
+  }, [firstName, lastName, city, zipCode, validateData, popupControl]);
+
+  const handleSubmit = () => {
+    validateData();
+    popupControl();
+
     const order = booksWithQuantity.map((bookWithQuantity) => {
       return {
         id: bookWithQuantity.book.id,
@@ -42,8 +95,11 @@ export default function Order() {
       zip_code: zipCode,
     };
 
-    postOrder(orderInfo).then((data) => console.log(data));
-  }, [booksWithQuantity, city, firstName, lastName, zipCode]);
+    if (isFirstNameValid && isLastNameValid && isCityValid && isZipCodeValid) {
+      // console.log is used just to show the post method works
+      postOrder(orderInfo).then((data) => console.log(data));
+    }
+  };
 
   return (
     <div className="max-w-7xl mx-auto h-screen">
@@ -99,7 +155,18 @@ export default function Order() {
         >
           I Order and Pay
         </button>
+        
+        {isPopupOpen ? (
+          <Popup
+            firstName={isFirstNameValid}
+            lastName={isLastNameValid}
+            city={isCityValid}
+            zipCode={isZipCodeValid}
+            setIsPopupOpen={setIsPopupOpen}
+          />
+        ) : null}
       </div>
+
     </div>
   );
 }
