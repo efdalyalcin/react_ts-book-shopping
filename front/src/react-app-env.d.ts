@@ -10,9 +10,16 @@ interface Book {
   currency: string;
 }
 
-interface BooksWithAmount {
+interface BooksWithQuantity {
   book: Book;
-  amount: number;
+  quantity: number;
+}
+
+interface OrderType {
+  first_name: string;
+  last_name: string;
+  city: string;
+  zip_code: string;
 }
 
 interface CartContextType {
@@ -20,4 +27,8 @@ interface CartContextType {
   addBook: (book: Book) => void;
   removeBook: (book: Book) => void;
   removeAll: (book: Book) => void;
+}
+
+interface OrderContextType {
+  booksWithQuantity: BooksWithQuantity[];
 }
