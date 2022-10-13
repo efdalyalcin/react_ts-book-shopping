@@ -21,10 +21,14 @@ export default function CartProvider({ children }: Children) {
   };
 
   const removeBook = (book: Book) => {
-    const bookToBeRemoved = shoppingCart.findIndex((eachBook) => eachBook.id === book.id);
+    // this removes the book from the end of the array to stop order change and jump
+    const bookToBeRemoved = [...shoppingCart]
+      .reverse()
+      .findIndex((eachBook) => eachBook.id === book.id);
     if (bookToBeRemoved !== -1) {
-      const books = [...shoppingCart]
-      books.splice(bookToBeRemoved, 1);
+      const books = [...shoppingCart];
+      const removalIndex = books.length - bookToBeRemoved - 1;
+      books.splice(removalIndex, 1);
       setShoppingCart([...books]);
     }
   };
