@@ -6,7 +6,7 @@ module.exports = {
     extend: {},
     minWidth: {
       "360": "360px",
-    },
+    }
   },
   plugins: [],
 };

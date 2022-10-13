@@ -15,7 +15,13 @@ interface BooksWithQuantity {
   quantity: number;
 }
 
-interface OrderInfoType {
+interface Order {
+  id: number;
+  quantity: number;
+}
+
+interface OrderInfo {
+  order: Order[],
   first_name: string;
   last_name: string;
   city: string;
