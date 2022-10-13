@@ -12,27 +12,30 @@ export default function Cart() {
   return (
     <div className="max-w-7xl mx-auto min-h-screen relative">
       <NavBar />
-      <div className="flex flex-wrap gap-5 p-5 justify-center">
+      <div className="flex flex-wrap gap-5 p-5 pb-16 justify-center">
         {booksWithQuantity.length
-          ? booksWithQuantity.map((bookWithAmount) => (
-              <div className="flex flex-col gap-4" key={bookWithAmount.book.id}>
-                <BookCard book={bookWithAmount.book} />
+          ? booksWithQuantity.map((bookWithQuantity) => (
+              <div
+                className="flex flex-col gap-4"
+                key={bookWithQuantity.book.id}
+              >
+                <BookCard book={bookWithQuantity.book} />
 
                 <div className="flex gap-1 items-center justify-center relative">
                   <button
-                    onClick={() => removeBook(bookWithAmount.book)}
+                    onClick={() => removeBook(bookWithQuantity.book)}
                     className="px-2 py-1 bg-sky-600 rounded"
                   >
                     -
                   </button>
-                  <p className="w-6 text-center">{bookWithAmount.quantity}</p>
+                  <p className="w-6 text-center">{bookWithQuantity.quantity}</p>
                   <button
-                    onClick={() => addBook(bookWithAmount.book)}
+                    onClick={() => addBook(bookWithQuantity.book)}
                     className="px-2 py-1 bg-sky-600 rounded"
                   >
                     +
                   </button>
-                  <button onClick={() => removeAll(bookWithAmount.book)}>
+                  <button onClick={() => removeAll(bookWithQuantity.book)}>
                     <img
                       src={trashCan}
                       alt="trash can"
@@ -42,11 +45,11 @@ export default function Cart() {
                 </div>
                 <div>
                   <p>
-                    <span className="font-bold">Total Amount: </span>
-                    {bookWithAmount.book.price * bookWithAmount.quantity}
+                    <span className="font-bold">Total Price: </span>
+                    {bookWithQuantity.book.price * bookWithQuantity.quantity}
                     <span className="font-bold">
                       {" "}
-                      {bookWithAmount.book.currency}
+                      {bookWithQuantity.book.currency}
                     </span>
                   </p>
                 </div>
