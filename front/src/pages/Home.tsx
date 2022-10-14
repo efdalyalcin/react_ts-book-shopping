@@ -8,7 +8,7 @@ export default function Home() {
       <NavBar />
       <Books />
       <Link
-        to="/react_ts-shopping-books/cart"
+        to="/cart"
         className="py-2 px-12 font-bold rounded-lg text-slate-100 text-center
         hover:text-slate-300 transition-colors duration-300 bg-sky-600
         sticky bottom-2 left-2"

@@ -6,7 +6,7 @@ export default function ErrorPage() {
 
   useEffect(() => {
     setTimeout(() => {
-      navigate("react_ts-shopping-books/");
+      navigate("/home");
     }, 2000);
   }, []);
 
